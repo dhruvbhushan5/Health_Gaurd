@@ -1,0 +1,296 @@
+.weekly-calories {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.weekly-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f8f9fa;
+}
+
+.weekly-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+}
+
+.weekly-stats {
+  display: flex;
+  gap: 24px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3498db;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.weekly-chart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 300px;
+  margin: 24px 0;
+  padding: 0 16px;
+  background: linear-gradient(to top, #f8f9fa 0%, #f8f9fa 1px, transparent 1px);
+  background-size: 100% 50px;
+}
+
+.day-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 80px;
+}
+
+.day-label {
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.bar-container {
+  height: 200px;
+  width: 40px;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 8px;
+}
+
+.calorie-bar {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-height: 4px;
+}
+
+.calorie-bar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bar-segments {
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.bar-segment {
+  transition: opacity 0.3s ease;
+}
+
+.bar-segment.breakfast {
+  background-color: #f39c12;
+}
+
+.bar-segment.lunch {
+  background-color: #e74c3c;
+}
+
+.bar-segment.dinner {
+  background-color: #9b59b6;
+}
+
+.bar-segment.snack {
+  background-color: #1abc9c;
+}
+
+.day-calories {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 24px 0;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+
+.legend-color.breakfast {
+  background-color: #f39c12;
+}
+
+.legend-color.lunch {
+  background-color: #e74c3c;
+}
+
+.legend-color.dinner {
+  background-color: #9b59b6;
+}
+
+.legend-color.snack {
+  background-color: #1abc9c;
+}
+
+.calorie-guidelines {
+  margin-top: 24px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  color: white;
+}
+
+.calorie-guidelines h4 {
+  margin: 0 0 16px 0;
+  color: white;
+  font-size: 1.125rem;
+}
+
+.guidelines-grid {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.guideline-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+
+.guideline-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.guideline-color.low {
+  background-color: #27ae60;
+}
+
+.guideline-color.normal {
+  background-color: #f39c12;
+}
+
+.guideline-color.high {
+  background-color: #e74c3c;
+}
+
+.guidelines-note {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.loading, .error-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 1.125rem;
+}
+
+.error-message {
+  color: #e74c3c;
+  background: #fdf2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .weekly-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .weekly-stats {
+    justify-content: center;
+  }
+
+  .weekly-chart {
+    height: 250px;
+    padding: 0 8px;
+  }
+
+  .bar-container {
+    height: 150px;
+    width: 30px;
+  }
+
+  .day-bar {
+    max-width: 60px;
+  }
+
+  .chart-legend {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .guidelines-grid {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .weekly-calories {
+    padding: 16px;
+  }
+
+  .weekly-chart {
+    height: 200px;
+  }
+
+  .bar-container {
+    height: 120px;
+    width: 25px;
+  }
+
+  .day-label {
+    font-size: 0.6rem;
+  }
+
+  .day-calories {
+    font-size: 0.6rem;
+  }
+}

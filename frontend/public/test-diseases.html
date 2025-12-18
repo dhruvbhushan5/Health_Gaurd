@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disease Update Test</title>
+</head>
+<body>
+    <h1>🧪 Disease Management Test</h1>
+    
+    <div id="status">🔍 Starting test...</div>
+    
+    <h3>Login</h3>
+    <button onclick="testLogin()">Login as Test User</button>
+    <pre id="loginResult"></pre>
+    
+    <h3>Get Diseases</h3>
+    <button onclick="getDiseases()">Get Current Diseases</button>
+    <pre id="getResult"></pre>
+    
+    <h3>Update Diseases</h3>
+    <button onclick="updateDiseases()">Update Diseases</button>
+    <pre id="updateResult"></pre>
+
+    <script>
+        let authToken = '';
+
+        async function testLogin() {
+            document.getElementById('loginResult').textContent = 'Logging in...';
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'test@example.com',
+                        password: 'Test123!@#'
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    authToken = data.token;
+                    document.getElementById('loginResult').textContent = 'Login successful!\n' + JSON.stringify(data, null, 2);
+                    document.getElementById('status').textContent = '✅ Logged in successfully';
+                } else {
+                    document.getElementById('loginResult').textContent = 'Login failed:\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                document.getElementById('loginResult').textContent = 'Login error: ' + error.message;
+            }
+        }
+
+        async function getDiseases() {
+            if (!authToken) {
+                alert('Please login first');
+                return;
+            }
+
+            document.getElementById('getResult').textContent = 'Getting diseases...';
+            
+            try {
+                const response = await fetch('/api/health/diseases', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                const data = await response.json();
+                document.getElementById('getResult').textContent = 'Current diseases:\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('getResult').textContent = 'Get diseases error: ' + error.message;
+            }
+        }
+
+        async function updateDiseases() {
+            if (!authToken) {
+                alert('Please login first');
+                return;
+            }
+
+            document.getElementById('updateResult').textContent = 'Updating diseases...';
+            
+            const testDiseases = [
+                {
+                    id: '1',
+                    name: 'Diabetes Type 2',
+                    diagnosed: true,
+                    diagnosisDate: '2024-01-01',
+                    severity: 'moderate'
+                },
+                {
+                    id: '2', 
+                    name: 'Hypertension',
+                    diagnosed: true,
+                    diagnosisDate: '2024-02-01',
+                    severity: 'mild'
+                }
+            ];
+            
+            try {
+                const response = await fetch('/api/health/diseases', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        diseases: testDiseases
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('updateResult').textContent = '✅ Diseases updated successfully!\n' + JSON.stringify(data, null, 2);
+                    document.getElementById('status').textContent = '🎉 Disease update successful!';
+                } else {
+                    document.getElementById('updateResult').textContent = '❌ Update failed:\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                document.getElementById('updateResult').textContent = 'Update error: ' + error.message;
+            }
+        }
+
+        // Auto-test sequence
+        async function autoTest() {
+            await testLogin();
+            setTimeout(async () => {
+                await getDiseases();
+                setTimeout(async () => {
+                    await updateDiseases();
+                }, 1000);
+            }, 1000);
+        }
+
+        // Start auto test after 2 seconds
+        setTimeout(autoTest, 2000);
+    </script>
+</body>
+</html>

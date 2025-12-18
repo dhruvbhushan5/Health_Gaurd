@@ -72,26 +72,22 @@ async function initializeRedis() {
 }
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/health-guard', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(async () => {
-  console.log('✅ MongoDB connected successfully');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/health-guard')
+  .then(async () => {
+    console.log('✅ MongoDB connected successfully');
     console.log(`📦 Database: ${process.env.MONGODB_URI || 'mongodb://localhost:27017/health-guard'}`);
-  
-  // Initialize Redis after MongoDB connection
-  await initializeRedis();
-}).catch(err => {
-})
-.catch(err => {
-  console.error('❌ MongoDB connection error:', err.message);
-  console.log('\n🔧 Quick fixes:');
-  console.log('1. Start local MongoDB: mongod');
-  console.log('2. Use MongoDB Atlas: Update MONGODB_URI in .env');
-  console.log('3. Install MongoDB: https://www.mongodb.com/try/download/community');
-  console.log('\n⚠️  Server will continue but registration/login will fail without database\n');
-});
+
+    // Initialize Redis after MongoDB connection
+    await initializeRedis();
+  })
+  .catch(err => {
+    console.error('❌ MongoDB connection error:', err.message);
+    console.log('\n🔧 Quick fixes:');
+    console.log('1. Start local MongoDB: mongod');
+    console.log('2. Use MongoDB Atlas: Update MONGODB_URI in .env');
+    console.log('3. Install MongoDB: https://www.mongodb.com/try/download/community');
+    console.log('\n⚠️  Server will continue but registration/login will fail without database\n');
+  });
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -130,8 +126,12 @@ app.use('*', (req, res) => {
   });
 });
 
-app.listen(PORT, '127.0.0.1', () => {
-  console.log(`Server is running on http://127.0.0.1:${PORT}`);
+// Use 0.0.0.0 to allow external connections (needed for deployment)
+// In development, this still works fine on localhost
+const HOST = process.env.HOST || '0.0.0.0';
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server is running on http://${HOST}:${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 }).on('error', (err) => {
   console.error('❌ Server failed to start:', err.message);

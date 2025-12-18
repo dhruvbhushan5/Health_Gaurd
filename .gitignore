@@ -1,0 +1,254 @@
+# ================================
+# DEPENDENCIES & PACKAGES
+# ================================
+node_modules/
+/.pnp
+.pnp.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ================================
+# BUILD OUTPUTS
+# ================================
+build/
+dist/
+*.tsbuildinfo
+frontend/build/
+backend/dist/
+out/
+.next/
+.nuxt/
+
+# ================================
+# ENVIRONMENT & SECRETS
+# ================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+*.env
+backend/.env
+frontend/.env
+!.env.example
+!.env.production.template
+
+# ================================
+# TEST & DEMO FILES
+# ================================
+# Test scripts in root
+test-*.js
+*-test.js
+*.test.js
+*.spec.js
+clear-users.js
+create-test-user.js
+final-test.js
+redis-features-demo.js
+setup-redis.js
+verify-redis.js
+test-backend-direct.js
+test-diseases-endpoint.js
+test-diseases-update.js
+test-encryption-auth.js
+test-frontend-api.js
+test-health.js
+test-proxy.js
+test-redis-connection.js
+test-redis-features.js
+test-registration-api.js
+test-registration-debug.js
+test-registration-simple.js
+test-registration.js
+
+# Backend test files
+backend/clear-users.js
+backend/list-users.js
+backend/test-api.js
+backend/test-mongodb.js
+backend/test-server.js
+backend/tests/
+
+# Frontend test files
+frontend/src/**/*.test.tsx
+frontend/src/**/*.test.ts
+frontend/src/**/*.spec.tsx
+frontend/src/**/*.spec.ts
+
+# ================================
+# BATCH & SCRIPT FILES
+# ================================
+*.bat
+*.ps1
+*.cmd
+restart-servers.bat
+run-health-guard.bat
+start-health-guard.bat
+START-HEALTH-GUARD.ps1
+
+# ================================
+# TEMPORARY DOCUMENTATION
+# ================================
+# Keep only essential docs
+DATABASE_SETUP.md
+FUNCTIONAL_TESTING_EXPLANATION.md
+FUNCTION_TESTING_GUIDE.md
+FUNCTION_TESTING_STATUS.md
+LEARNING_NOTES.md
+PROFESSOR_DEMONSTRATION.md
+PROFESSOR_PROOF.md
+QUICK_DEMO_SCRIPT.md
+QUICK_REDIS_SETUP.md
+QUICK_START.md
+REDIS_INTEGRATION_SUMMARY.md
+REDIS_SETUP.md
+SETUP.md
+TESTING_IMPLEMENTATION_GUIDE.md
+WHERE-REDIS-IS-WORKING.md
+
+# Keep deployment guides (created for production)
+!README.md
+!DEPLOYMENT_ISSUES.md
+!DEPLOYMENT_FIXES_COMPLETED.md
+!QUICK_DEPLOYMENT_GUIDE.md
+!GITIGNORE_SUMMARY.md
+!GIT_CLEANUP_COMMANDS.md
+
+# ================================
+# LOGS & DEBUG
+# ================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+debug.log
+
+# ================================
+# TESTING & COVERAGE
+# ================================
+coverage/
+.nyc_output/
+*.coverage
+.coverage
+htmlcov/
+.pytest_cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# ================================
+# OS FILES
+# ================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ================================
+# IDE & EDITORS
+# ================================
+# VSCode
+.vscode/
+.vscode-test/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea_modules/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*.swn
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.projectile
+
+# Visual Studio
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ================================
+# GITHUB & CI/CD
+# ================================
+.github/workflows/
+.github/ISSUE_TEMPLATE/
+.github/PULL_REQUEST_TEMPLATE/
+
+# ================================
+# CACHE & TEMP FILES
+# ================================
+.cache
+.cache/
+.parcel-cache
+.sass-cache/
+.eslintcache
+.stylelintcache
+.npm/
+.yarn/
+*.pid
+*.seed
+*.pid.lock
+tmp/
+temp/
+.temp/
+
+# ================================
+# DATABASE FILES (Local)
+# ================================
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+data/
+mongodb-data/
+
+# ================================
+# MISC
+# ================================
+.git/
+.gitattributes
+*.orig
+*.rej
+.keep
+.history/
+*.bak
+*.backup
+*.old
+*.tmp
+DEPLOYMENT_FIXES_COMPLETED.md
+DEPLOYMENT_ISSUES.md
+GIT_CLEANUP_COMMANDS.md
+GITIGNORE_SUMMARY.md
+QUICK_DEPLOYMENT_GUIDE.md
+.github/copilot-instructions.md
+backend/.env.example
+frontend/.env.production.template

@@ -1,0 +1,175 @@
+.calorie-recommendation {
+  padding: 20px 0;
+}
+
+.calorie-recommendation h1 {
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.recommendation-card {
+  border-left: 4px solid #007bff;
+  background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+}
+
+.recommendation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.recommendation-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.recommendation-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.recommendation-date {
+  font-size: 14px;
+  color: #666;
+}
+
+.calorie-badge {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.recommendation-content {
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.recommendation-content h4,
+.recommendation-content h3 {
+  color: #007bff;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.recommendation-content ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.recommendation-content li {
+  margin-bottom: 8px;
+  list-style-type: disc;
+}
+
+.recommendation-content p {
+  margin-bottom: 15px;
+}
+
+.recommendation-content strong {
+  color: #333;
+}
+
+.recommendation-footer {
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.reasoning {
+  color: #666;
+  font-style: italic;
+}
+
+.recommendations-history {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: background-color 0.2s;
+}
+
+.history-item:hover {
+  background-color: #f0f0f0;
+}
+
+.history-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.history-date {
+  font-weight: 600;
+  color: #333;
+}
+
+.history-calories {
+  font-size: 14px;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.disclaimer {
+  background: linear-gradient(135deg, #fff3cd 0%, #fff 100%);
+  border-left: 4px solid #ffc107;
+}
+
+.disclaimer h4 {
+  color: #856404;
+  margin-bottom: 15px;
+}
+
+.disclaimer p {
+  color: #856404;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.disclaimer strong {
+  color: #723b13;
+}
+
+@media (max-width: 768px) {
+  .recommendation-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .recommendation-meta {
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .calorie-badge {
+    align-self: flex-start;
+  }
+  
+  .history-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .history-header {
+    width: 100%;
+  }
+}
