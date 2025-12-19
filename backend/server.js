@@ -138,6 +138,11 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Root route for welcome message
+app.get('/', (req, res) => {
+  res.status(200).send('API is running 🚀. Access endpoints at /api/...');
+});
+
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
