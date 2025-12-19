@@ -6,14 +6,16 @@ const getApiUrl = (): string => {
   if (process.env.REACT_APP_API_URL) {
     return process.env.REACT_APP_API_URL;
   }
-  
+
   // Development: Use localhost backend
   if (process.env.NODE_ENV === 'development') {
-    return 'http://127.0.0.1:8080';
+    return 'http://localhost:5000';
   }
-  
-  // Production fallback: Use relative URL (assumes same domain) or configure your production backend URL
-  return 'https://your-backend-domain.com'; // TODO: Replace with actual production backend URL
+
+  // Production: If no env var is set, default to relative path (if serving frontend from backend) 
+  // or throw an error/log a warning if that's not the intended setup.
+  // For now, returning empty string which usually defaults to current origin in axios
+  return '';
 };
 
 export const API_URL = getApiUrl();

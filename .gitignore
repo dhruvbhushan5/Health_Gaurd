@@ -1,4 +1,4 @@
-# ================================
+ # ================================
 # DEPENDENCIES & PACKAGES
 # ================================
 node_modules/
@@ -250,5 +250,6 @@ GIT_CLEANUP_COMMANDS.md
 GITIGNORE_SUMMARY.md
 QUICK_DEPLOYMENT_GUIDE.md
 .github/copilot-instructions.md
+
 backend/.env.example
-frontend/.env.production.template
+frontend/.env.example
