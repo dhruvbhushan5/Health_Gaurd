@@ -42,7 +42,7 @@ router.post('/register', [
 ], async (req, res) => {
   try {
     console.log('📝 Registration attempt:', { email: req.body.email, name: req.body.name });
-    
+
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -130,7 +130,7 @@ router.post('/register', [
     });
   } catch (error) {
     console.error('Registration error:', error);
-    
+
     // Handle specific MongoDB errors
     if (error.name === 'MongooseError' || error.name === 'MongoNetworkError') {
       return res.status(500).json({
@@ -138,14 +138,14 @@ router.post('/register', [
         error: process.env.NODE_ENV === 'development' ? error.message : 'Database unavailable'
       });
     }
-    
+
     // Handle duplicate email error
     if (error.code === 11000) {
       return res.status(400).json({
         message: 'User with this email already exists'
       });
     }
-    
+
     res.status(500).json({
       message: 'Internal server error during registration',
       error: process.env.NODE_ENV === 'development' ? error.message : {}
@@ -189,7 +189,7 @@ router.post('/login', [
     // Check password
     const isPasswordValid = await user.comparePassword(password);
     console.log('🔐 Password validation result:', isPasswordValid);
-    
+
     if (!isPasswordValid) {
       console.log('❌ Password validation failed for user:', email);
       return res.status(401).json({
@@ -237,7 +237,8 @@ router.post('/login', [
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     });
   } catch (error) {
@@ -253,7 +254,7 @@ router.post('/login', [
 router.get('/verify', async (req, res) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
-    
+
     if (!token) {
       return res.status(401).json({
         message: 'No token provided'
@@ -262,7 +263,7 @@ router.get('/verify', async (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.userId);
-    
+
     if (!user) {
       return res.status(401).json({
         message: 'Invalid token'
@@ -272,7 +273,8 @@ router.get('/verify', async (req, res) => {
     res.json({
       id: user._id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      role: user.role
     });
   } catch (error) {
     console.error('Token verification error:', error);
@@ -286,7 +288,7 @@ router.get('/verify', async (req, res) => {
 router.post('/logout', async (req, res) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
-    
+
     if (!token) {
       return res.status(401).json({
         message: 'No token provided'
@@ -295,17 +297,17 @@ router.post('/logout', async (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.userId;
-    
+
     // 🎯 REDIS SESSION CLEANUP
     // Delete session using new Redis methods
     await redisClient.deleteSession(userId);
-    
+
     // Clean up Redis session and cache (legacy)
     if (redisClient.isConnected) {
       const sessionKey = `session:legacy:${userId}`;
       const cacheKey = `user:${userId}:profile`;
       const healthKey = `healthData:${userId}`;
-      
+
       await redisClient.del(sessionKey);
       await redisClient.del(cacheKey);
       await redisClient.del(healthKey);

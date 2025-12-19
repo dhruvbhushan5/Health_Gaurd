@@ -98,8 +98,25 @@ app.use('/api/ai', aiRoutes);
 app.use('/ai', aiRoutes); // Handle proxy-rewritten paths
 app.use('/api/meals', mealsRoutes);
 app.use('/meals', mealsRoutes); // Handle proxy-rewritten paths
-app.use('/api/admin', redisAnalyticsRoutes);
-app.use('/admin', redisAnalyticsRoutes); // Redis analytics and management
+const adminRoutes = require('./routes/admin');
+// ... other imports ...
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes); // Handle proxy-rewritten paths
+app.use('/api/health', healthRoutes);
+app.use('/health', healthRoutes); // Handle proxy-rewritten paths
+app.use('/api/ai', aiRoutes);
+app.use('/ai', aiRoutes); // Handle proxy-rewritten paths
+app.use('/api/meals', mealsRoutes);
+app.use('/meals', mealsRoutes); // Handle proxy-rewritten paths
+
+// Admin Routes (User Management & Stats)
+app.use('/api/admin', adminRoutes);
+
+// Redis Analytics (Moved to specific path to avoid conflict/provide clarity)
+app.use('/api/admin/redis', redisAnalyticsRoutes);
+app.use('/admin/redis', redisAnalyticsRoutes);
 
 // Health check endpoint
 app.get('/api/health-check', (req, res) => {

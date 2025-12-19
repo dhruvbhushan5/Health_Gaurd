@@ -13,16 +13,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div>
       <nav className="navbar">
         <div className="navbar-content">
-          <Link to="/" className="navbar-brand">
+          <Link to={user ? "/dashboard" : "/"} className="navbar-brand">
             Health Guard
           </Link>
           <div className="navbar-nav">
-            <Link to="/" className="nav-link">Dashboard</Link>
+            <Link to="/dashboard" className="nav-link">Dashboard</Link>
             <Link to="/health-metrics" className="nav-link">Health Metrics</Link>
             <Link to="/diseases" className="nav-link">Diseases</Link>
             <Link to="/medications" className="nav-link">Medications</Link>
             <Link to="/meal-tracker" className="nav-link">Meal Tracker</Link>
             <Link to="/calorie-recommendation" className="nav-link">AI Recommendations</Link>
+            {user?.role === 'admin' && (
+              <Link to="/admin" className="nav-link" style={{ color: '#ff4444' }}>Admin Panel</Link>
+            )}
             <span className="nav-link">Welcome, {user?.name}</span>
             <button onClick={logout} className="logout-btn">
               Logout

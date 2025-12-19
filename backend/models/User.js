@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
     trim: true,
     match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
   },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
   password: {
     type: String,
     required: [true, 'Password is required'],
@@ -159,9 +164,9 @@ const userSchema = new mongoose.Schema({
 });
 
 // Hash password before saving
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
-  
+
   try {
     this.password = await hashPassword(this.password);
     next();
@@ -171,23 +176,23 @@ userSchema.pre('save', async function(next) {
 });
 
 // Compare password method
-userSchema.methods.comparePassword = async function(candidatePassword) {
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return await comparePassword(candidatePassword, this.password);
 };
 
 // Calculate BMI
-userSchema.methods.calculateBMI = function() {
+userSchema.methods.calculateBMI = function () {
   if (!this.healthMetrics.height || !this.healthMetrics.weight) return null;
   const heightInMeters = this.healthMetrics.height / 100;
   return this.healthMetrics.weight / (heightInMeters * heightInMeters);
 };
 
 // Get health status summary
-userSchema.methods.getHealthSummary = function() {
+userSchema.methods.getHealthSummary = function () {
   const bmi = this.calculateBMI();
   const activeDiseases = this.diseases.filter(d => d.diagnosed);
   const activeMedications = this.medications.filter(m => m.active);
-  
+
   return {
     bmi: bmi ? parseFloat(bmi.toFixed(1)) : null,
     activeDiseases: activeDiseases.length,
@@ -197,30 +202,30 @@ userSchema.methods.getHealthSummary = function() {
 };
 
 // Calculate daily calories consumed
-userSchema.methods.getDailyCalories = function(date = new Date()) {
+userSchema.methods.getDailyCalories = function (date = new Date()) {
   const startOfDay = new Date(date);
   startOfDay.setHours(0, 0, 0, 0);
-  
+
   const endOfDay = new Date(date);
   endOfDay.setHours(23, 59, 59, 999);
-  
-  const dayMeals = this.meals.filter(meal => 
+
+  const dayMeals = this.meals.filter(meal =>
     meal.date >= startOfDay && meal.date <= endOfDay
   );
-  
+
   const totalCalories = dayMeals.reduce((total, meal) => total + meal.totalCalories, 0);
-  
+
   const mealBreakdown = {
     breakfast: 0,
     lunch: 0,
     dinner: 0,
     snack: 0
   };
-  
+
   dayMeals.forEach(meal => {
     mealBreakdown[meal.mealType] += meal.totalCalories;
   });
-  
+
   return {
     totalCalories,
     mealBreakdown,
@@ -230,13 +235,13 @@ userSchema.methods.getDailyCalories = function(date = new Date()) {
 };
 
 // Get weekly calorie summary
-userSchema.methods.getWeeklyCalories = function(date = new Date()) {
+userSchema.methods.getWeeklyCalories = function (date = new Date()) {
   const weekData = [];
-  
+
   for (let i = 6; i >= 0; i--) {
     const day = new Date(date);
     day.setDate(day.getDate() - i);
-    
+
     const dayCalories = this.getDailyCalories(day);
     weekData.push({
       date: day.toISOString().split('T')[0],
@@ -244,7 +249,7 @@ userSchema.methods.getWeeklyCalories = function(date = new Date()) {
       mealBreakdown: dayCalories.mealBreakdown
     });
   }
-  
+
   return weekData;
 };
 

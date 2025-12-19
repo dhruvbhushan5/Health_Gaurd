@@ -8,9 +8,17 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
-  const { login } = useAuth();
+
+  const { login, user } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect if logged in (in case they manually go to /login)
+  React.useEffect(() => {
+    if (user) {
+      if (user.role === 'admin') navigate('/admin');
+      else navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +27,7 @@ const Login: React.FC = () => {
 
     try {
       await login(email, password);
-      navigate('/');
+      // Navigation is handled by the useEffect hook observing the user object
     } catch (error) {
       setError('Invalid email or password');
     } finally {
@@ -42,7 +50,7 @@ const Login: React.FC = () => {
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label className="form-label">Password</label>
             <input
@@ -53,18 +61,18 @@ const Login: React.FC = () => {
               required
             />
           </div>
-          
+
           {error && <div className="error">{error}</div>}
-          
-          <button 
-            type="submit" 
+
+          <button
+            type="submit"
             className="btn btn-primary auth-button"
             disabled={loading}
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-        
+
         <p className="auth-link">
           Don't have an account? <Link to="/register">Register here</Link>
         </p>
